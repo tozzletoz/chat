@@ -6,7 +6,9 @@ const container = document.getElementById("container")
 
 let usernameText = localStorage.getItem("username") || null
 username.value = usernameText
-send.addEventListener("click", () => {
+send.addEventListener("click", sendMsg)
+
+function sendMsg() {
 	if  (message.value.trim() != "" && username.value.trim() != ""){
 		console.log(encode(message.value))
 		const newMessage = document.createElement("p")
@@ -23,7 +25,7 @@ send.addEventListener("click", () => {
 			"value": encode(`${username.value}: ${message.value}`)
 		}))
 	}
-})
+}
 
 function encode(text) {
     return text.split('').map(char => {
@@ -50,4 +52,10 @@ socket.addEventListener("message", (resp) => {
 
 username.addEventListener("input", () => {
 	localStorage.setItem("username", username.value)
+})
+
+document.addEventListener("keypress", (event) => {
+	if (event.key == "Enter") {
+		sendMsg()
+	}
 })
