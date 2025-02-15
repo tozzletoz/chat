@@ -23,8 +23,8 @@ function sendMsg() {
 			"project_id": "1133733472",
 			"name": "☁ hruhoqf",
 			"value": encode(`${username.value}: ${message.value}`)
-		}))
-	}
+		}))}
+	message.value = ""
 }
 
 function encode(text) {
