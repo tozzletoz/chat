@@ -55,6 +55,7 @@ username.addEventListener("input", () => {
 })
 
 document.addEventListener("keypress", (event) => {
+	message.focus()
 	if (event.key == "Enter") {
 		sendMsg()
 	}
