@@ -10,15 +10,13 @@ let usernameText = localStorage.getItem("username") || null
 username.value = usernameText
 send.addEventListener("click", sendMsg)
 
-async function sendMsg() {
+function sendMsg() {
 	if  (message.value.trim() != "" && username.value.trim() != ""){
-		username.value = await checkChat(username.value)
 		console.log(encode(message.value))
 		const newMessage = document.createElement("div")
-		const msg = await checkChat(message.value)
 		newMessage.style.backgroundColor = "rgba(60, 255, 0, 0.4)"
 		newMessage.className = "message sent"
-		newMessage.textContent = `You: ${msg}`
+		newMessage.textContent = `You: ${message.value}`
 		messages.appendChild(newMessage)
 		container.scrollTo({
 			top: messages.scrollHeight,
@@ -29,7 +27,7 @@ async function sendMsg() {
 			"user": "player",
 			"project_id": "1133733472",
 			"name": "☁ hruhoqf",
-			"value": encode(`${username.value}: ${msg}`)
+			"value": encode(`${username.value}: ${message.value}`)
 		}))}
 	message.value = ""
 }
@@ -63,7 +61,7 @@ socket.addEventListener("message", (resp) => {
 	}
 })
 
-username.addEventListener("input", async () => {
+username.addEventListener("input", () => {
 	localStorage.setItem("username", username.value)
 })
 
@@ -73,10 +71,3 @@ document.addEventListener("keypress", (event) => {
 		sendMsg()
 	}
 })
-
-function checkChat(word){
-	return axios.get(`https://www.purgomalum.com/service/plain?text=${word}`).then(response => {
-		console.log(response.data)
-		return response.data
-	})
-}
